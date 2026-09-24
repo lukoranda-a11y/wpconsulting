@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Well Pack Consulting — Operations Assessment & Improvement</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a8175;
+    --ink-2:#0c9686;
+    --paper:#f5f7f6;
+    --paper-2:#e9ece9;
+    --text:#16211f;
+    --text-soft:#55625f;
+    --teal:#17c8a8;
+    --teal-deep:#0d6355;
+    --charcoal:#495654;
+    --diagram-accent:var(--teal-deep);
+    --diagram-dim:var(--text-soft);
+    --diagram-caption:var(--teal-deep);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+  }
+  img,svg{max-width:100%;display:block;}
+  h1,h2,h3{
+    font-family:'Space Grotesk',sans-serif;
+    margin:0;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 28px;}
+  a{color:inherit;}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:20;
+    background:rgba(22,33,31,.96);
+    backdrop-filter:blur(4px);
+    color:#fff;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  header.nav .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:12px;padding-bottom:12px;
+  }
+  .nav-brand{display:flex;align-items:center;}
+  .nav-brand img{height:26px;width:auto;}
+  nav.nav-links{display:flex;gap:26px;font-size:13.5px;}
+  nav.nav-links a{
+    text-decoration:none;color:#cfe3de;font-family:'IBM Plex Mono',monospace;
+    letter-spacing:.03em;font-size:12.5px;text-transform:uppercase;
+  }
+  nav.nav-links a:hover{color:#fff;}
+  .nav-right{display:flex;align-items:center;gap:14px;}
+  .lang-switch{display:flex;gap:2px;background:rgba(255,255,255,.08);border-radius:3px;padding:2px;}
+  .lang-switch a{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;
+    background:transparent;border:none;color:#9db8b1;padding:5px 8px;border-radius:2px;
+    text-decoration:none;
+  }
+  .lang-switch a.active{background:var(--teal);color:#0b1d19;font-weight:600;}
+  .btn{
+    display:inline-block;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;
+    padding:11px 20px;
+    border-radius:2px;
+    text-decoration:none;
+    border:1px solid var(--teal);
+    color:#0b1d19;
+    background:var(--teal);
+    transition:opacity .15s;
+    white-space:nowrap;
+  }
+  .btn:hover{opacity:.86;}
+  .btn.ghost{
+    background:transparent;border-color:rgba(255,255,255,.4);color:#fff;
+  }
+  .btn.ghost:hover{border-color:#fff;opacity:1;}
+  .btn.dark{background:var(--ink);border-color:var(--ink);color:#fff;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:linear-gradient(to right, var(--ink) 50%, #ffffff 50%);
+    color:#fff;
+    overflow:hidden;
+  }
+  .hero-grid{
+    position:absolute;left:0;right:50%;top:0;bottom:0;
+    background-image:linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px);
+    background-size:34px 34px;
+    mask-image:linear-gradient(to bottom, rgba(0,0,0,.9), transparent 92%);
+  }
+  .hero-inner{
+    position:relative;z-index:1;
+    padding-top:78px;
+    padding-bottom:46px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--teal);
+    display:flex;align-items:center;gap:9px;margin-bottom:16px;
+  }
+  .eyebrow::before,
+  .eyebrow::after{content:"";width:22px;height:1px;background:var(--teal);}
+  .hero h1{
+    font-size:44px;line-height:1.08;font-weight:700;color:#fff;
+  }
+  .hero h1 em{color:var(--teal);font-style:normal;}
+  .hero p.lede{
+    margin-top:18px;font-size:16.5px;color:#c9dbd6;max-width:46ch;
+  }
+  .hero-ctas{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap;}
+  .stat-row{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:0;margin-top:44px;border-top:1px solid rgba(255,255,255,.14);
+    padding-top:20px;max-width:520px;
+  }
+  .stat-row div{padding-right:14px;}
+  .stat-num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;color:#fff;}
+  .stat-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:#9db8b1;margin-top:3px;}
+
+  .blueprint{
+    position:relative;
+  }
+  .hero-logo{
+    position:absolute;
+    top:-180px;
+    left:50%;
+    transform:translateX(-50%);
+    width:300px;height:auto;
+    opacity:1;
+  }
+  .hero-logo-mobile{
+    display:none;
+  }
+
+  .blueprint-caption{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--diagram-caption);text-align:center;margin-top:8px;
+  }
+
+  /* ---------- SECTION SCAFFOLDING ---------- */
+  section{padding:76px 0;}
+  .section-head{max-width:680px;margin-bottom:12px;}
+  .section-head h2{font-size:30px;font-weight:700;}
+  .section-head p{color:var(--text-soft);margin-top:12px;font-size:15.5px;}
+
+  .dim-divider{
+    background:var(--paper-2);
+    border-top:1px solid #d7ddd7;
+    border-bottom:1px solid #d7ddd7;
+    padding:22px 0;
+  }
+  .dim-divider .wrap{
+    display:flex;align-items:center;gap:18px;
+  }
+  .dim-divider .tag{
+    font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;
+    letter-spacing:.06em;color:var(--ink);white-space:nowrap;
+  }
+  .dim-line{flex:1;height:1px;background:repeating-linear-gradient(to right, var(--ink) 0 6px, transparent 6px 12px);position:relative;}
+  .dim-line::before,.dim-line::after{
+    content:"";position:absolute;top:-4px;width:1px;height:9px;background:var(--ink);
+  }
+  .dim-line::before{left:0;}
+  .dim-line::after{right:0;}
+
+  /* ---------- ABOUT / TRACK RECORD ---------- */
+  .about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start;}
+  .about-grid p{color:var(--text-soft);font-size:15.5px;}
+  .about-grid p + p{margin-top:14px;}
+  .route{position:relative;padding-left:26px;}
+  .route::before{
+    content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;
+    background:repeating-linear-gradient(to bottom, var(--teal) 0 6px, transparent 6px 12px);
+  }
+  .route-item{position:relative;padding-bottom:26px;}
+  .route-item:last-child{padding-bottom:0;}
+  .route-item::before{
+    content:"";position:absolute;left:-26px;top:2px;width:11px;height:11px;
+    border-radius:50%;background:var(--ink);border:2px solid var(--teal);
+  }
+  .route-item.current::before{background:var(--teal);}
+  .route-role{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15.5px;color:var(--ink);}
+  .route-tag{
+    display:inline-block;margin-left:8px;
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--teal-deep);background:rgba(20,133,117,.1);padding:2px 6px;border-radius:2px;
+    vertical-align:middle;
+  }
+
+  /* ---------- WHY WELL PACK ---------- */
+  .wp-benefits-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;
+    margin-top:8px;
+  }
+  .wp-benefit{
+    background:#fff;border:1px solid #e2e7e2;border-radius:3px;
+    padding:16px 18px;
+    display:flex;align-items:flex-start;gap:10px;
+    font-size:14.5px;color:var(--text);
+  }
+  .wp-benefit::before{
+    content:"";flex:none;width:8px;height:8px;margin-top:6px;
+    background:var(--teal-deep);border-radius:2px;
+  }
+  .wp-sustainability{
+    margin-top:22px;
+    background:var(--ink);color:#fff;border-radius:3px;
+    padding:30px 32px;
+    display:flex;align-items:center;gap:28px;
+    flex-wrap:wrap;
+  }
+  .wp-sustainability-stat{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:44px;color:var(--teal);
+    flex:none;
+  }
+  .wp-sustainability-text{color:#c9dbd6;font-size:14.5px;max-width:52ch;}
+
+  /* ---------- PRICING ---------- */
+  .price-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;}
+  .price-card{
+    background:#fff;
+    border:1px solid var(--teal-deep);
+    border-radius:3px;
+    padding:20px 16px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    position:relative;
+    box-shadow:0 6px 26px rgba(10,129,117,.14);
+  }
+  .price-tier{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--text-soft);}
+  .price-size{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14.5px;color:var(--ink);}
+  .price-amount{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:28px;color:var(--ink);}
+  .price-amount span{font-size:14px;font-weight:500;color:var(--text-soft);}
+  .price-note{font-size:12px;color:var(--text-soft);}
+  .assessment-footnote{
+    margin-top:18px;font-size:13.5px;color:var(--text-soft);
+    border-left:3px solid var(--text-soft);padding-left:14px;
+  }
+  .deliverable-list{margin-top:8px;}
+  .deliverable-list h3{font-size:16.5px;margin-bottom:12px;}
+  .deliverable-list ul{margin:0;padding-left:18px;color:var(--text-soft);font-size:14.5px;display:flex;flex-direction:column;gap:6px;}
+
+  /* ---------- IMPROVEMENT / SUCCESS FEE ---------- */
+  .success-block{
+    display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;
+  }
+  .quote-card{
+    background:var(--ink);color:#fff;border-radius:3px;padding:36px 32px;
+    position:relative;overflow:hidden;
+  }
+  .quote-card::before{
+    content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.10) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,.10) 1px, transparent 1px);
+    background-size:26px 26px;
+  }
+  .quote-card .inner{position:relative;z-index:1;}
+  .quote-pct{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:56px;color:var(--teal);line-height:1;}
+  .quote-line{font-size:16px;margin-top:14px;color:#d7e7e3;max-width:34ch;}
+  .quote-sub{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9db8b1;margin-top:18px;letter-spacing:.03em;}
+  .steps{display:flex;flex-direction:column;gap:20px;}
+  .step{display:flex;gap:14px;}
+  .step-num{
+    font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px;
+    color:var(--teal-deep);border:1px solid var(--teal-deep);border-radius:50%;
+    width:26px;height:26px;flex:none;display:flex;align-items:center;justify-content:center;
+  }
+  .step-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--ink);}
+  .step-desc{font-size:13.8px;color:var(--text-soft);margin-top:3px;}
+
+  /* ---------- WHY / RATIONALE BAND ---------- */
+  .why{background:var(--ink-2);color:#fff;}
+  .why .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+  .why h2{color:#fff;font-size:26px;}
+  .why-col p{color:#c9dbd6;font-size:15px;}
+  .why-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-panel{
+    background:#fff;border:1px solid #e2e7e2;border-radius:3px;
+    padding:40px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;
+  }
+  .contact-person{display:flex;align-items:center;gap:16px;margin-bottom:22px;}
+  .contact-photo{
+    width:76px;height:76px;border-radius:50%;object-fit:cover;flex:none;
+    border:2px solid var(--paper-2);
+  }
+  .contact-person-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15.5px;color:var(--ink);}
+  .contact-person-role{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--teal-deep);text-transform:uppercase;letter-spacing:.03em;margin-top:2px;}
+  .contact-list{display:flex;flex-direction:column;gap:14px;margin-top:20px;}
+  .contact-row{display:flex;align-items:center;gap:12px;font-size:15px;}
+  .contact-row .k{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--text-soft);width:64px;flex:none;
+  }
+  .contact-cta{display:flex;flex-direction:column;gap:10px;}
+
+  footer{padding:30px 0;border-top:1px solid #e2e7e2;}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--text-soft);flex-wrap:wrap;gap:8px;}
+  footer .mono{letter-spacing:.03em;}
+  footer .footer-brand{display:flex;align-items:center;gap:12px;}
+  footer .footer-logo{height:20px;width:auto;opacity:.85;}
+  footer a{color:var(--teal-deep);}
+
+  /* ---------- COOKIE NOTICE ---------- */
+  .cookie-bar{
+    position:fixed;
+    left:0;right:0;bottom:0;
+    z-index:50;
+    background:var(--ink);
+    color:#dbe6ee;
+    border-top:1px solid rgba(255,255,255,.14);
+    box-shadow:0 -6px 26px rgba(0,0,0,.25);
+  }
+  .cookie-bar .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:20px;
+    padding-top:16px;padding-bottom:16px;
+    flex-wrap:wrap;
+  }
+  .cookie-bar p{
+    margin:0;font-size:13.5px;line-height:1.5;color:#c9dbd6;max-width:70ch;
+  }
+  .cookie-bar p a{
+    color:var(--teal);text-decoration:underline;
+  }
+  .cookie-bar-actions{
+    display:flex;gap:10px;flex:none;
+  }
+  .cookie-bar .btn{padding:9px 16px;}
+  @media (max-width:640px){
+    .cookie-bar .wrap{flex-direction:column;align-items:stretch;text-align:left;}
+    .cookie-bar-actions{justify-content:flex-end;}
+  }
+
+  @media (max-width:880px){
+    :root{
+      --diagram-accent:#ffffff;
+      --diagram-dim:#c9dbd6;
+      --diagram-caption:#7fa79d;
+    }
+    .hero{background:var(--ink);}
+    .hero-grid{left:0;right:0;}
+    .hero-inner{grid-template-columns:1fr;
+      padding-top: 18px;
+      padding-bottom: 30px;}
+    .hero-logo{display:none;}
+    .hero-logo-mobile{
+      display:block;
+      order:-1;
+      width:250px;height:auto;
+      margin:0 auto 18px;
+      opacity:.95;
+    }
+    .stat-row{grid-template-columns:repeat(3,1fr);max-width:none;}
+    .hero h1{font-size:32px;}
+    .about-grid,.success-block,.why .wrap,.contact-panel{grid-template-columns:1fr;}
+    .price-cards{grid-template-columns:1fr;}
+    nav.nav-links{display:none;}
+    header.nav .wrap{
+      flex-wrap:wrap;
+      row-gap:8px;
+    }
+    .nav-brand{
+      order:2;
+      width:100%;
+    }
+    .nav-right{
+      order:1;
+      width:100%;
+      justify-content:space-between;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="nav-brand" href="/"><img src="images/wplogo-wordmark-white.png" alt="Well Pack Consulting"></a>
+    <nav class="nav-links">
+      <a href="#track-record">Track record</a>
+      <a href="#wellpack">Why Well Pack</a>
+      <a href="#assessment">Assessment</a>
+      <a href="#improvement">Improvement</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-switch">
+        <a href="/" class="active">EN</a>
+        <a href="cz.html">CZ</a>
+        <a href="sk.html">SK</a>
+      </div>
+      <a class="btn" href="#contact">Request a quote</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="wrap hero-inner">
+    <img class="hero-logo-mobile" src="images/wplogo-wordmark-white.png" alt="Well Pack Consulting">
+    <div>
+      <div class="eyebrow">Well Pack Consulting</div>
+      <h1>Find what's costing your operation money — <em>then fix it.</em></h1>
+      <p class="lede">I assess warehouse and depot operations as part of the Well Pack Consulting team, flag exactly where efficiency is leaking, and — if you want — lead the improvement project myself, backed by Well Pack's logistics infrastructure and engineering expertise. You only pay for the improvement part if it saves you money.</p>
+      <div class="hero-ctas">
+        <a class="btn" href="#assessment">See assessment pricing</a>
+        <a class="btn ghost" href="#improvement">How the success fee works</a>
+      </div>
+      <div class="stat-row">
+        <div>
+          <div class="stat-num">10+ yrs</div>
+          <div class="stat-label">Personal ops experience</div>
+        </div>
+        <div>
+          <div class="stat-num">1992</div>
+          <div class="stat-label">Well Pack founded in Prague</div>
+        </div>
+        <div>
+          <div class="stat-num">2M+</div>
+          <div class="stat-label">Trees saved yearly by Well Pack</div>
+        </div>
+      </div>
+    </div>
+    <div class="blueprint">
+      <img class="hero-logo" src="images/wplogo-color.png" alt="Well Pack Consulting">
+      <svg viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M20 0H0V20" fill="none" stroke="#6fb3a5" stroke-width="0.6" opacity="0.4"/>
+          </pattern>
+        </defs>
+        <rect x="40" y="40" width="480" height="300" fill="url(#grid)" stroke="#6fb3a5" stroke-width="1.4"/>
+        <g stroke="#6fb3a5" stroke-width="1.2" opacity="0.85">
+          <rect x="66" y="66" width="140" height="18" fill="none"/>
+          <rect x="66" y="98" width="140" height="18" fill="none"/>
+          <rect x="66" y="130" width="140" height="18" fill="none"/>
+          <rect x="66" y="162" width="140" height="18" fill="none"/>
+          <rect x="66" y="194" width="140" height="18" fill="none"/>
+          <rect x="242" y="66" width="140" height="18" fill="none"/>
+          <rect x="242" y="98" width="140" height="18" fill="none"/>
+          <rect x="242" y="130" width="140" height="18" fill="none"/>
+          <rect x="242" y="162" width="140" height="18" fill="none"/>
+          <rect x="242" y="194" width="140" height="18" fill="none"/>
+        </g>
+        <rect x="418" y="66" width="78" height="80" fill="none" stroke="var(--diagram-accent)" stroke-width="1.4"/>
+        <text x="457" y="112" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--diagram-accent)">OFFICE</text>
+        <g stroke="var(--diagram-accent)" stroke-width="2.4">
+          <line x1="90" y1="340" x2="112" y2="340"/>
+          <line x1="130" y1="340" x2="152" y2="340"/>
+          <line x1="170" y1="340" x2="192" y2="340"/>
+          <line x1="210" y1="340" x2="232" y2="340"/>
+        </g>
+        <text x="161" y="362" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--diagram-accent)" letter-spacing="1">DOCK DOORS</text>
+        <line x1="40" y1="24" x2="520" y2="24" stroke="var(--diagram-dim)" stroke-width="1"/>
+        <line x1="40" y1="18" x2="40" y2="30" stroke="var(--diagram-dim)" stroke-width="1"/>
+        <line x1="520" y1="18" x2="520" y2="30" stroke="var(--diagram-dim)" stroke-width="1"/>
+        <text x="280" y="16" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--diagram-dim)">142 m</text>
+        <line x1="18" y1="40" x2="18" y2="340" stroke="var(--diagram-dim)" stroke-width="1"/>
+        <line x1="12" y1="40" x2="24" y2="40" stroke="var(--diagram-dim)" stroke-width="1"/>
+        <line x1="12" y1="340" x2="24" y2="340" stroke="var(--diagram-dim)" stroke-width="1"/>
+        <text x="10" y="192" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--diagram-dim)" transform="rotate(-90 10 192)">98 m</text>
+      </svg>
+      <div class="blueprint-caption">Every assessment starts with a walkthrough of the shop floor.</div>
+    </div>
+  </div>
+</section>
+
+<section id="track-record">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Real operations experience, backed by an established partner</h2>
+      <p>Every recommendation I make has been tested against real P&amp;L and KPI board first, not just read in a case study. I have proven experience driving real savings and optimization within top-tier companies on the market — and I now bring that hands-on approach into Well Pack Consulting.</p>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>I've spent the last decade inside warehouses and last-mile operations: running shifts, then depots, then whole regions across e-commerce, retail, and 3PL environments. I've built the KPI boards, rewritten the SOPs, led successful projects, built teams, changed layouts, and stood on the shopfloor at 5 am or 11 pm when a layout change didn't work the way the spreadsheet said it would, just to make it right.</p>
+        <p>That's the perspective I bring into a consulting engagement: I know which "quick wins" are real and which ones just move the problem to a different shift. Since joining Well Pack Consulting, that same hands-on approach is now backed by Well Pack's logistics infrastructure, in-house engineering team, and network across Central and Eastern Europe.</p>
+      </div>
+      <div class="route">
+        <div class="route-item current">
+          <div class="route-role">Operations Consultant — Well Pack Consulting <span class="route-tag">Current</span></div>
+        </div>
+        <div class="route-item">
+          <div class="route-role">Regional Operations Manager — Packeta Slovakia</div>
+        </div>
+        <div class="route-item">
+          <div class="route-role">Operations Manager — CEVA Logistics</div>
+        </div>
+        <div class="route-item">
+          <div class="route-role">Warehouse Operations Manager — Lidl Slovakia</div>
+        </div>
+        <div class="route-item">
+          <div class="route-role">Area Manager — Amazon</div>
+        </div>
+        <div class="route-item">
+          <div class="route-role">Operations Logistics Manager — Hopi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="dim-divider">
+  <div class="wrap">
+    <span class="tag mono">BACKED BY WELL PACK</span>
+    <div class="dim-line"></div>
+  </div>
+</div>
+
+<section id="wellpack">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Why this comes from Well Pack, not just an independent consultant</h2>
+      <p>Well Pack has been solving complex international logistics problems since 1992 — warehouse operations, 3PL/4PL outsourcing, fulfillment, reverse logistics, production logistics, and reusable packaging washing across Central and Eastern Europe. When I assess your operation, that infrastructure and engineering expertise comes with me.</p>
+    </div>
+
+    <div class="wp-benefits-grid">
+      <div class="wp-benefit">Dedicated team of logistics experts</div>
+      <div class="wp-benefit">Extensive international experience</div>
+      <div class="wp-benefit">Fast, high-quality delivery</div>
+      <div class="wp-benefit">Flexible, customized solutions</div>
+      <div class="wp-benefit">Reliable, long-term partnerships</div>
+      <div class="wp-benefit">Significant presence across CEE</div>
+    </div>
+
+    <div class="wp-sustainability">
+      <div class="wp-sustainability-stat">2M+</div>
+      <div class="wp-sustainability-text">trees saved yearly through Well Pack's eco-driven washing processes — solar-powered warehouses, reusable containers, water-efficient methods, and emission-free equipment across the network.</div>
+    </div>
+  </div>
+</section>
+
+<div class="dim-divider">
+  <div class="wrap">
+    <span class="tag mono">01 — THE ASSESSMENT</span>
+    <div class="dim-line"></div>
+  </div>
+</div>
+
+<section id="assessment">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>A structured assessment of your operation</h2>
+      <p>I walk the floor, review your team, safety, data, and processes against what I've seen work at scale, and hand you a clear, prioritized report, no vague "recommendations," just findings tied to specific corrective actions. Things that will actually save money in the future. My assessment is suitable for operations of any size. It's not just about heavy automation or huge investments. Sometimes even a simple solution can unlock massive success.</p>
+    </div>
+
+    <div class="price-cards">
+      <div class="price-card">
+        <div class="price-tier"><span>Tier</span> 1</div>
+        <div class="price-size">Up to 10,000 m²</div>
+        <div class="price-amount">€2,000</div>
+        <div class="price-note">5-7 working days</div>
+      </div>
+      <div class="price-card mid">
+        <div class="price-tier"><span>Tier</span> 2</div>
+        <div class="price-size">10,000 – 30,000 m²</div>
+        <div class="price-amount">€2,500</div>
+        <div class="price-note">7-8 working days</div>
+      </div>
+      <div class="price-card">
+        <div class="price-tier"><span>Tier</span> 3</div>
+        <div class="price-size">30,000 – 50,000 m²</div>
+        <div class="price-amount">€3,500</div>
+        <div class="price-note">8-10 working days</div>
+      </div>
+      <div class="price-card">
+        <div class="price-tier"><span>Tier</span> 4</div>
+        <div class="price-size">50,000 – 75,000 m²</div>
+        <div class="price-amount">€4,500</div>
+        <div class="price-note">10-12 working days</div>
+      </div>
+      <div class="price-card">
+        <div class="price-tier"><span>Tier</span> 5</div>
+        <div class="price-size">Above 75,000 m²</div>
+        <div class="price-amount">€5,500</div>
+        <div class="price-note">12-15 working days</div>
+      </div>
+    </div>
+
+    <div class="assessment-footnote">
+      Pricing and workload estimations are based on operational floor area and cover the on-site assessment and a comprehensive written report. If needed, travel costs are added on top, and accommodation may be added for sites that require an overnight stay.
+    </div>
+
+    <div class="deliverable-list">
+      <h3>What you get</h3>
+      <ul>
+        <li>Pre-assessment call to settle all necessary details, information and timing</li>
+        <li>An on-site detailed walkthrough of your operation, system, safety, layout, workflow and team</li>
+        <li>Review of relevant KPIs, throughput and staffing data</li>
+        <li>A written findings report ranking issues by impact</li>
+        <li>Specific, actionable corrective steps for each finding — not general advice</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="dim-divider">
+  <div class="wrap">
+    <span class="tag mono">02 — THE IMPROVEMENT</span>
+    <div class="dim-line"></div>
+  </div>
+</div>
+
+<section id="improvement">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>If you want me to lead the fix, too</h2>
+      <p>Some findings are worth implementing properly, not just handing to an internal team already stretched thin. I can lead that project myself — and I only get paid if it actually saves you money.</p>
+    </div>
+    <div class="success-block">
+      <div class="quote-card">
+        <div class="inner">
+          <div class="quote-pct">15%</div>
+          <div class="quote-line">of the annual savings I prove out — charged only once, after real savings are verified.</div>
+          <div class="quote-sub">NO PROVEN SAVINGS → NO FEE. NOT A DAY RATE, NOT A RETAINER.</div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">We agree the baseline</div>
+            <div class="step-desc">Before starting, we fix the current-state numbers the improvement will be measured against.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">I lead the implementation</div>
+            <div class="step-desc">Working with your team on the ground to put the corrective actions into practice.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">We measure the result</div>
+            <div class="step-desc">Savings are verified against the agreed baseline over an agreed period.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-title">You pay 15% of what's proven — or nothing</div>
+            <div class="step-desc">If the numbers don't move, the project has cost you nothing beyond the initial assessment.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <div class="why-col">
+      <div class="why-tag">Why structured this way</div>
+      <h2>One paid step. One free-if-it-fails step.</h2>
+    </div>
+    <div class="why-col">
+      <p>The assessment carries a fee because it takes real time on-site and produces a concrete deliverable regardless of what happens next — that work has value whether or not you act on it.</p>
+      <p>The improvement work is priced differently on purpose. I want to be judged on results, not hours booked. If I lead a project and the savings don't materialise, you don't pay for my time — that risk sits with me, not you.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-panel">
+      <div>
+        <div class="contact-person">
+          <img class="contact-photo" src="images/lukas-koranda.png" alt="Lukas Koranda">
+          <div>
+            <div class="contact-person-name">Lukas Koranda</div>
+            <div class="contact-person-role">Operations Consultant · Well Pack</div>
+          </div>
+        </div>
+        <h2 style="font-size:26px;">Ready to find the gap? Let's fix it!</h2>
+        <p style="color:var(--text-soft);margin-top:10px;font-size:15px;">Drop me a quick email with your site size and location. I'll skip the corporate intake forms and get straight to what's slowing your floor down.</p>
+        <div class="contact-list">
+          <div class="contact-row"><span class="k mono">Email</span> <a href="mailto:consulting@wellpack.org">consulting@wellpack.org</a></div>
+          <div class="contact-row"><span class="k mono">Phone</span> <a href="tel:+421915703402">+421 915 703 402</a></div>
+        </div>
+      </div>
+      <div class="contact-cta">
+        <a class="btn dark" href="mailto:consulting@wellpack.org?subject=Operations%20assessment%20enquiry&body=Site%20name%20and%20location%3A%0AApprox.%20floor%20area%20(m%C2%B2)%3A%0AWhat%20I'd%20like%20looked%20at%3A%0A">Email for a quote</a>
+        <a class="btn ghost" style="border-color:#d7ddd7;color:var(--ink);" href="tel:+421915703402">Call instead</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-brand">
+      <img class="footer-logo" src="images/wplogo-wordmark-color.png" alt="Well Pack Consulting">
+      <div class="mono">© <span id="yr"></span> Well Pack Consulting — Lukas Koranda, Operations Consultant</div>
+    </div>
+    <div class="mono">Part of Well Pack, est. 1992 · Available on-site across CEE · <a href="privacy.html">Privacy</a> · <a href="#" id="reopenCookieBar">Cookie settings</a></div>
+  </div>
+</footer>
+
+<div class="cookie-bar" id="cookieBar" style="display:none;">
+  <div class="wrap">
+    <p>
+      This site currently uses only strictly necessary technology to run, and no analytics or advertising cookies. If that changes in the future, this preference is where you'll be able to control it. See our <a href="privacy.html">Privacy Notice</a> for details.
+    </p>
+    <div class="cookie-bar-actions">
+      <a class="btn ghost" href="#" id="cookieDecline" style="border-color:#d7ddd7;color:#fff;">Decline</a>
+      <a class="btn" href="#" id="cookieAccept">Accept</a>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// ---------- Cookie consent banner ----------
+(function(){
+  var STORAGE_KEY = 'wp_cookie_consent'; // 'accepted' | 'declined'
+  var bar = document.getElementById('cookieBar');
+  var acceptBtn = document.getElementById('cookieAccept');
+  var declineBtn = document.getElementById('cookieDecline');
+  var reopenLink = document.getElementById('reopenCookieBar');
+
+  function getConsent(){
+    try { return localStorage.getItem(STORAGE_KEY); } catch(e){ return null; }
+  }
+  function setConsent(value){
+    try { localStorage.setItem(STORAGE_KEY, value); } catch(e){}
+  }
+  function showBar(){ bar.style.display = 'block'; }
+  function hideBar(){ bar.style.display = 'none'; }
+
+  function applyConsent(value){
+    setConsent(value);
+    hideBar();
+    // ---- Hook future scripts in here ----
+    // Example, when analytics is added later:
+    // if (value === 'accepted') { loadAnalytics(); }
+  }
+
+  if (!getConsent()) { showBar(); }
+
+  acceptBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    applyConsent('accepted');
+  });
+  declineBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    applyConsent('declined');
+  });
+  reopenLink.addEventListener('click', function(e){
+    e.preventDefault();
+    showBar();
+  });
+})();
+</script>
+</body>
+</html>
