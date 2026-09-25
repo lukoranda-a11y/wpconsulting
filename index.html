@@ -18,9 +18,9 @@
     --teal:#17c8a8;
     --teal-deep:#0d6355;
     --charcoal:#495654;
-    --diagram-accent:var(--teal-deep);
-    --diagram-dim:var(--text-soft);
-    --diagram-caption:var(--teal-deep);
+    --diagram-accent:#ffffff;
+    --diagram-dim:#c9dbd6;
+    --diagram-caption:#7fa79d;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -94,12 +94,12 @@
   /* ---------- HERO ---------- */
   .hero{
     position:relative;
-    background:linear-gradient(to right, var(--ink) 50%, #ffffff 50%);
+    background:linear-gradient(to right, #ffffff 50%, var(--ink) 50%);
     color:#fff;
     overflow:hidden;
   }
   .hero-grid{
-    position:absolute;left:0;right:50%;top:0;bottom:0;
+    position:absolute;left:50%;right:0;top:0;bottom:0;
     background-image:linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px),
                       linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px);
     background-size:34px 34px;
@@ -116,37 +116,39 @@
   }
   .eyebrow{
     font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--teal);
+    text-transform:uppercase;color:var(--teal-deep);
     display:flex;align-items:center;gap:9px;margin-bottom:16px;
   }
   .eyebrow::before,
-  .eyebrow::after{content:"";width:22px;height:1px;background:var(--teal);}
+  .eyebrow::after{content:"";width:22px;height:1px;background:var(--teal-deep);}
   .hero h1{
-    font-size:44px;line-height:1.08;font-weight:700;color:#fff;
+    font-size:44px;line-height:1.08;font-weight:700;color:var(--text);
   }
-  .hero h1 em{color:var(--teal);font-style:normal;}
+  .hero h1 em{color:var(--teal-deep);font-style:normal;}
   .hero p.lede{
-    margin-top:18px;font-size:16.5px;color:#c9dbd6;max-width:46ch;
+    margin-top:18px;font-size:16.5px;color:var(--text-soft);max-width:46ch;
   }
   .hero-ctas{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap;}
+  .hero .btn.ghost{border-color:var(--ink);color:var(--ink);}
+  .hero .btn.ghost:hover{border-color:var(--ink);opacity:.75;}
   .stat-row{
     display:grid;grid-template-columns:repeat(3,1fr);
-    gap:0;margin-top:44px;border-top:1px solid rgba(255,255,255,.14);
+    gap:0;margin-top:44px;border-top:1px solid rgba(0,0,0,.1);
     padding-top:20px;max-width:520px;
   }
   .stat-row div{padding-right:14px;}
-  .stat-num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;color:#fff;}
-  .stat-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:#9db8b1;margin-top:3px;}
+  .stat-num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;color:var(--ink);}
+  .stat-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--text-soft);margin-top:3px;}
 
   .blueprint{
     position:relative;
   }
   .hero-logo{
     position:absolute;
-    top:-220px;
+    top:-180px;
     left:50%;
     transform:translateX(-50%);
-    width:120px;height:auto;
+    width:300px;height:auto;
     opacity:1;
   }
   .hero-logo-mobile{
@@ -356,11 +358,6 @@
   }
 
   @media (max-width:880px){
-    :root{
-      --diagram-accent:#ffffff;
-      --diagram-dim:#c9dbd6;
-      --diagram-caption:#7fa79d;
-    }
     .hero{background:var(--ink);}
     .hero-grid{left:0;right:0;}
     .hero-inner{grid-template-columns:1fr;
@@ -375,7 +372,16 @@
       opacity:.95;
     }
     .stat-row{grid-template-columns:repeat(3,1fr);max-width:none;}
-    .hero h1{font-size:32px;}
+    .eyebrow{color:var(--teal);}
+    .eyebrow::before,.eyebrow::after{background:var(--teal);}
+    .hero h1{font-size:32px;color:#fff;}
+    .hero h1 em{color:var(--teal);}
+    .hero p.lede{color:#c9dbd6;}
+    .hero .btn.ghost{border-color:rgba(255,255,255,.4);color:#fff;}
+    .hero .btn.ghost:hover{border-color:#fff;opacity:1;}
+    .stat-row{border-top-color:rgba(255,255,255,.14);}
+    .stat-num{color:#fff;}
+    .stat-label{color:#9db8b1;}
     .about-grid,.success-block,.why .wrap,.contact-panel{grid-template-columns:1fr;}
     .price-cards{grid-template-columns:1fr;}
     nav.nav-links{display:none;}
@@ -446,7 +452,7 @@
       </div>
     </div>
     <div class="blueprint">
-      <img class="hero-logo" src="images/wplogo-color.png" alt="Well Pack Consulting">
+      <img class="hero-logo" src="images/wplogo-white.png" alt="Well Pack Consulting">
       <svg viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -694,7 +700,7 @@
           <img class="contact-photo" src="images/lukas-koranda.png" alt="Lukas Koranda">
           <div>
             <div class="contact-person-name">Lukas Koranda</div>
-            <div class="contact-person-role">Senior Operations Consultant · Well Pack</div>
+            <div class="contact-person-role">Operations Consultant · Well Pack</div>
           </div>
         </div>
         <h2 style="font-size:26px;">Ready to find the gap? Let's fix it!</h2>
