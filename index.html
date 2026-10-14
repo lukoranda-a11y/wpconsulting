@@ -107,11 +107,11 @@
   }
   .hero-inner{
     position:relative;z-index:1;
-    padding-top:10px;
+    padding-top:78px;
     padding-bottom:46px;
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:30px;
+    gap:40px;
     align-items:center;
   }
   .eyebrow{
@@ -146,8 +146,8 @@
   .hero-logo{
     position:absolute;
     top:-180px;
-    left:20%;
-    transform:translateY(45px);
+    left:50%;
+    transform:translateX(-50%);
     width:300px;height:auto;
     opacity:1;
   }
@@ -157,7 +157,7 @@
 
   .blueprint-caption{
     font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;
-    text-transform:uppercase;color:#ffffff;text-align:center;margin-top:8px;
+    text-transform:uppercase;color:var(--diagram-caption);text-align:center;margin-top:8px;
   }
 
   /* ---------- SECTION SCAFFOLDING ---------- */
@@ -187,28 +187,9 @@
   .dim-line::after{right:0;}
 
   /* ---------- ABOUT / TRACK RECORD ---------- */
-  .about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start;}
-  .about-grid p{color:var(--text-soft);font-size:15.5px;}
-  .about-grid p + p{margin-top:14px;}
-  .route{position:relative;padding-left:26px;}
-  .route::before{
-    content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;
-    background:repeating-linear-gradient(to bottom, var(--teal) 0 6px, transparent 6px 12px);
-  }
-  .route-item{position:relative;padding-bottom:26px;}
-  .route-item:last-child{padding-bottom:0;}
-  .route-item::before{
-    content:"";position:absolute;left:-26px;top:2px;width:11px;height:11px;
-    border-radius:50%;background:var(--ink);border:2px solid var(--teal);
-  }
-  .route-item.current::before{background:var(--teal);}
-  .route-role{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15.5px;color:var(--ink);}
-  .route-tag{
-    display:inline-block;margin-left:8px;
-    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;
-    color:var(--teal-deep);background:rgba(20,133,117,.1);padding:2px 6px;border-radius:2px;
-    vertical-align:middle;
-  }
+  .track-text{max-width:70ch;}
+  .track-text p{color:var(--text-soft);font-size:15.5px;}
+  .track-text p + p{margin-top:14px;}
 
   /* ---------- WHY WELL PACK ---------- */
   .wp-benefits-grid{
@@ -237,6 +218,34 @@
     flex:none;
   }
   .wp-sustainability-text{color:#c9dbd6;font-size:14.5px;max-width:52ch;}
+
+  /* ---------- ARTICLES ---------- */
+  .articles-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;
+    margin-top:8px;
+  }
+  .article-card{
+    display:block;
+    background:#fff;border:1px solid #e2e7e2;border-radius:3px;
+    padding:22px 20px;
+    text-decoration:none;color:var(--text);
+    transition:border-color .15s, box-shadow .15s;
+  }
+  .article-card:hover{
+    border-color:var(--teal-deep);
+    box-shadow:0 6px 22px rgba(10,129,117,.12);
+  }
+  .article-card-title{
+    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;color:var(--ink);
+  }
+  .article-card-excerpt{
+    margin-top:8px;font-size:14px;color:var(--text-soft);line-height:1.55;
+  }
+  .article-card-link{
+    margin-top:14px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.03em;text-transform:uppercase;
+    color:var(--teal-deep);
+  }
 
   /* ---------- PRICING ---------- */
   .price-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;}
@@ -382,7 +391,7 @@
     .stat-row{border-top-color:rgba(255,255,255,.14);}
     .stat-num{color:#fff;}
     .stat-label{color:#9db8b1;}
-    .about-grid,.success-block,.why .wrap,.contact-panel{grid-template-columns:1fr;}
+    .success-block,.why .wrap,.contact-panel{grid-template-columns:1fr;}
     .price-cards{grid-template-columns:1fr;}
     nav.nav-links{display:none;}
     header.nav .wrap{
@@ -409,6 +418,7 @@
     <nav class="nav-links">
       <a href="#track-record">Track record</a>
       <a href="#wellpack">Why Well Pack</a>
+      <a href="#articles">Articles</a>
       <a href="#assessment">Assessment</a>
       <a href="#improvement">Improvement</a>
       <a href="#contact">Contact</a>
@@ -427,19 +437,19 @@
 <section class="hero">
   <div class="hero-grid"></div>
   <div class="wrap hero-inner">
-    <img class="hero-logo-mobile" src="images/wplogo-white.png" alt="Well Pack Consulting">
+    <img class="hero-logo-mobile" src="images/wplogo-wordmark-white.png" alt="Well Pack Consulting">
     <div>
-      
+      <div class="eyebrow">Well Pack Consulting</div>
       <h1>Find what's costing your operation money — <em>then fix it.</em></h1>
-      <p class="lede">We assess warehouses and depot operations as part of the Well Pack Consulting team, we flag exactly where efficiency is leaking, and — if you want — lead the improvement project, we can do that so you can use our infrastructure and engineering expertise. You only pay for the improvement part if it saves you money.</p>
+      <p class="lede">I assess warehouse and depot operations as part of the Well Pack Consulting team, flag exactly where efficiency is leaking, and — if you want — lead the improvement project myself, backed by Well Pack's logistics infrastructure and engineering expertise. You only pay for the improvement part if it saves you money.</p>
       <div class="hero-ctas">
         <a class="btn" href="#assessment">See assessment pricing</a>
         <a class="btn ghost" href="#improvement">How the success fee works</a>
       </div>
       <div class="stat-row">
         <div>
-          <div class="stat-num">30+ yrs</div>
-          <div class="stat-label">Ops experience</div>
+          <div class="stat-num">10+ yrs</div>
+          <div class="stat-label">Personal ops experience</div>
         </div>
         <div>
           <div class="stat-num">1992</div>
@@ -447,7 +457,7 @@
         </div>
         <div>
           <div class="stat-num">2M+</div>
-          <div class="stat-label">EUR saved annualy to our clients</div>
+          <div class="stat-label">Trees saved yearly by Well Pack</div>
         </div>
       </div>
     </div>
@@ -499,40 +509,18 @@
   <div class="wrap">
     <div class="section-head">
       <h2>Real operations experience, backed by an established partner</h2>
-      <p>Every recommendation we make has been tested against real P&amp;L and KPI board first, not just read in a case study. We have proven experience driving real savings and optimization within top-tier companies on the market — and we now bring that hands-on approach with Well Pack Consulting to your operations.</p>
+      <p>Every recommendation I make has been tested against real P&amp;L and KPI board first, not just read in a case study. I have proven experience driving real savings and optimization within top-tier companies on the market — and I now bring that hands-on approach into Well Pack Consulting.</p>
     </div>
-    <div class="about-grid">
-      <div>
-        <p>We've spent the last decades inside warehouses and last-mile operations: running shifts, then depots, then whole regions across e-commerce, retail, and 3PL environments. I've built the KPI boards, rewritten the SOPs, led successful projects, built teams, changed layouts, and stood on the shopfloor at 5 am or 11 pm when a layout change didn't work the way the spreadsheet said it would, just to make it right.</p>
-        <p>That's the perspective I bring into a consulting engagement: I know which "quick wins" are real and which ones just move the problem to a different shift. Since joining Well Pack Consulting, that same hands-on approach is now backed by Well Pack's logistics infrastructure, in-house engineering team, and network across Central and Eastern Europe.</p>
-      </div>
-      <div class="route">
-        <div class="route-item current">
-          <div class="route-role">Well Pack Consulting <span class="route-tag">Current</span></div>
-        </div>
-        <div class="route-item">
-          <div class="route-role">3PL/4PL outsourcing</div>
-        </div>
-        <div class="route-item">
-          <div class="route-role">Fulfillment</div>
-        </div>
-        <div class="route-item">
-          <div class="route-role">Reverse logistics</div>
-        </div>
-        <div class="route-item">
-          <div class="route-role">Small / Mid / Large Operations</div>
-        </div>
-        <div class="route-item">
-          <div class="route-role">Modern technologies & principles</div>
-        </div>
-      </div>
+    <div class="track-text">
+      <p>I've spent the last decade inside warehouses and last-mile operations: running shifts, then depots, then whole regions across e-commerce, retail, and 3PL environments. I've built the KPI boards, rewritten the SOPs, led successful projects, built teams, changed layouts, and stood on the shopfloor at 5 am or 11 pm when a layout change didn't work the way the spreadsheet said it would, just to make it right.</p>
+      <p>That's the perspective I bring into a consulting engagement: I know which "quick wins" are real and which ones just move the problem to a different shift. Since joining Well Pack Consulting, that same hands-on approach is now backed by Well Pack's logistics infrastructure, in-house engineering team, and network across Central and Eastern Europe.</p>
     </div>
   </div>
 </section>
 
 <div class="dim-divider">
   <div class="wrap">
-    <span class="tag mono">WHY WELL PACK</span>
+    <span class="tag mono">BACKED BY WELL PACK</span>
     <div class="dim-line"></div>
   </div>
 </div>
@@ -540,8 +528,8 @@
 <section id="wellpack">
   <div class="wrap">
     <div class="section-head">
-      <h2>Why this comes from Well Pack</h2>
-      <p>Well Pack has been solving complex international logistics problems since 1992 — warehouse operations, 3PL/4PL outsourcing, fulfillment, reverse logistics, production logistics, and reusable packaging washing across Central and Eastern Europe. When we assess your operation, that infrastructure and engineering expertise comes with us.</p>
+      <h2>Why this comes from Well Pack, not just an independent consultant</h2>
+      <p>Well Pack has been solving complex international logistics problems since 1992 — warehouse operations, 3PL/4PL outsourcing, fulfillment, reverse logistics, production logistics, and reusable packaging washing across Central and Eastern Europe. When I assess your operation, that infrastructure and engineering expertise comes with me.</p>
     </div>
 
     <div class="wp-benefits-grid">
@@ -562,6 +550,40 @@
 
 <div class="dim-divider">
   <div class="wrap">
+    <span class="tag mono">INSIGHTS</span>
+    <div class="dim-line"></div>
+  </div>
+</div>
+
+<section id="articles">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Notes from the floor</h2>
+      <p>Practical takeaways from assessments and improvement projects — replace these placeholders with real articles when ready.</p>
+    </div>
+
+    <div class="articles-grid">
+      <a class="article-card" href="#">
+        <div class="article-card-title">Article title goes here</div>
+        <div class="article-card-excerpt">A short excerpt describing what this article covers goes here — one or two sentences is enough.</div>
+        <div class="article-card-link">Read more →</div>
+      </a>
+      <a class="article-card" href="#">
+        <div class="article-card-title">Article title goes here</div>
+        <div class="article-card-excerpt">A short excerpt describing what this article covers goes here — one or two sentences is enough.</div>
+        <div class="article-card-link">Read more →</div>
+      </a>
+      <a class="article-card" href="#">
+        <div class="article-card-title">Article title goes here</div>
+        <div class="article-card-excerpt">A short excerpt describing what this article covers goes here — one or two sentences is enough.</div>
+        <div class="article-card-link">Read more →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="dim-divider">
+  <div class="wrap">
     <span class="tag mono">01 — THE ASSESSMENT</span>
     <div class="dim-line"></div>
   </div>
@@ -571,7 +593,7 @@
   <div class="wrap">
     <div class="section-head">
       <h2>A structured assessment of your operation</h2>
-      <p>We walk the floor, review your team, safety, data, and processes against what we've seen work at scale, and hand you a clear, prioritized report, no vague "recommendations," just findings tied to specific corrective actions. Things that will actually save money in the future. Our assessment is suitable for operations of any size. It's not just about heavy automation or huge investments. Sometimes even a simple solution can unlock massive success.</p>
+      <p>I walk the floor, review your team, safety, data, and processes against what I've seen work at scale, and hand you a clear, prioritized report, no vague "recommendations," just findings tied to specific corrective actions. Things that will actually save money in the future. My assessment is suitable for operations of any size. It's not just about heavy automation or huge investments. Sometimes even a simple solution can unlock massive success.</p>
     </div>
 
     <div class="price-cards">
@@ -634,14 +656,14 @@
 <section id="improvement">
   <div class="wrap">
     <div class="section-head">
-      <h2>If you want us to lead the fix, too</h2>
-      <p>Some findings are worth implementing properly, not just handing to an internal team already stretched thin. We can lead that project ourself — and we only get paid if it actually saves you money.</p>
+      <h2>If you want me to lead the fix, too</h2>
+      <p>Some findings are worth implementing properly, not just handing to an internal team already stretched thin. I can lead that project myself — and I only get paid if it actually saves you money.</p>
     </div>
     <div class="success-block">
       <div class="quote-card">
         <div class="inner">
           <div class="quote-pct">15%</div>
-          <div class="quote-line">of the annual savings we prove out — charged only once, after real savings are verified.</div>
+          <div class="quote-line">of the annual savings I prove out — charged only once, after real savings are verified.</div>
           <div class="quote-sub">NO PROVEN SAVINGS → NO FEE. NOT A DAY RATE, NOT A RETAINER.</div>
         </div>
       </div>
@@ -656,7 +678,7 @@
         <div class="step">
           <div class="step-num">2</div>
           <div>
-            <div class="step-title">We lead the implementation</div>
+            <div class="step-title">I lead the implementation</div>
             <div class="step-desc">Working with your team on the ground to put the corrective actions into practice.</div>
           </div>
         </div>
@@ -687,7 +709,7 @@
     </div>
     <div class="why-col">
       <p>The assessment carries a fee because it takes real time on-site and produces a concrete deliverable regardless of what happens next — that work has value whether or not you act on it.</p>
-      <p>The improvement work is priced differently on purpose. We want to be judged on results, not hours booked. If we lead a project and the savings don't materialise, you don't pay for my time — that risk sits with us, not you.</p>
+      <p>The improvement work is priced differently on purpose. I want to be judged on results, not hours booked. If I lead a project and the savings don't materialise, you don't pay for my time — that risk sits with me, not you.</p>
     </div>
   </div>
 </section>
@@ -700,11 +722,11 @@
           <img class="contact-photo" src="images/lukas-koranda.png" alt="Lukas Koranda">
           <div>
             <div class="contact-person-name">Lukas Koranda</div>
-            <div class="contact-person-role">Senior Operations Consultant · Well Pack</div>
+            <div class="contact-person-role">Operations Consultant · Well Pack</div>
           </div>
         </div>
         <h2 style="font-size:26px;">Ready to find the gap? Let's fix it!</h2>
-        <p style="color:var(--text-soft);margin-top:10px;font-size:15px;">Drop us a quick email with your site size and location. We'll skip the corporate intake forms and get straight to what's slowing your floor down.</p>
+        <p style="color:var(--text-soft);margin-top:10px;font-size:15px;">Drop me a quick email with your site size and location. I'll skip the corporate intake forms and get straight to what's slowing your floor down.</p>
         <div class="contact-list">
           <div class="contact-row"><span class="k mono">Email</span> <a href="mailto:consulting@wellpack.org">consulting@wellpack.org</a></div>
           <div class="contact-row"><span class="k mono">Phone</span> <a href="tel:+421915703402">+421 915 703 402</a></div>
@@ -722,7 +744,7 @@
   <div class="wrap">
     <div class="footer-brand">
       <img class="footer-logo" src="images/wplogo-wordmark-color.png" alt="Well Pack Consulting">
-      <div class="mono">© <span id="yr"></span> Well Pack Consulting — Lukas Koranda, Senior Operations Consultant</div>
+      <div class="mono">© <span id="yr"></span> Well Pack Consulting — Lukas Koranda, Operations Consultant</div>
     </div>
     <div class="mono">Part of Well Pack, est. 1992 · Available on-site across CEE · <a href="privacy.html">Privacy</a> · <a href="#" id="reopenCookieBar">Cookie settings</a></div>
   </div>
