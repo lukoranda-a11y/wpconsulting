@@ -344,7 +344,10 @@
     padding:40px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;
   }
   .contact-person{display:flex;align-items:center;gap:16px;margin-bottom:22px;}
-  .contact-logo{height:44px;width:auto;flex:none;}
+  .contact-photo{
+    width:76px;height:76px;border-radius:50%;object-fit:cover;flex:none;
+    border:2px solid var(--paper-2);
+  }
   .contact-person-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15.5px;color:var(--ink);}
   .contact-person-role{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--teal-deep);text-transform:uppercase;letter-spacing:.03em;margin-top:2px;}
   .contact-list{display:flex;flex-direction:column;gap:14px;margin-top:20px;}
@@ -778,9 +781,12 @@
   <div class="wrap">
     <div class="contact-panel">
       <div>
-<div class="contact-person">
-  <img class="contact-logo" src="images/wplogo-black.png" alt="Well Pack Consulting">
-</div>
+        <div class="contact-person">
+          <img class="contact-photo" src="images/lukas-koranda.png" alt="Lukas Koranda">
+          <div>
+            <div class="contact-person-name">Lukas Koranda</div>
+            <div class="contact-person-role">Senior Operations Consultant</div>
+          </div>
         </div>
         <h2 style="font-size:26px;">Ready to find the gap? Let's fix it!</h2>
         <p style="color:var(--text-soft);margin-top:10px;font-size:15px;">Drop us a quick email with your site size and location. We'll skip the corporate intake forms and get straight to what's slowing your floor down.</p>
